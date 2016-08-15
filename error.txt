@@ -1,0 +1,37 @@
+* springMVC No mapping found for HTTP request with URI (2012-02-03 09:21:13)转载▼
+	No mapping found for HTTP request with URI
+	出现这个问题的原因是在web.xml中配置错了，如：
+		<servlet>
+			 <servlet-name>springMVCDispatcherServlet</servlet-name>
+			 <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			 <param-name>contextConfigLocation</param-name>
+			 <param-value>/WEB-INF/springMVC-servlet.xml</param-value>
+		</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>
+			 <servlet-name>springMVCDispatcherServlet</servlet-name>
+			 <url-pattern>/*</url-pattern>
+		</servlet-mapping>
+	当你在control中返回一个路径的时候，它又把路径（/view/index.jsp）当作一个请求被dispatcherServlet所拦截。所以会抛出异常，解决的办法有两个：
+	第一即使让dispatcherServlet的拦截加上后缀如：*.do;
+	这样以jsp后缀的就不会别拦截了。
+	第二个方法是在spring-servlet.xml中加入：
+	<mvc:default-servlet-handler/> 该标签 目前测试不管用 原因未知
+
+* controller的访问路径级别会引起页面上文件路径问题  一般定义为2级  即类名+方法
+
+*  用了springmvc为何JS，CSS等文件就是访问不到
+*  为什么web.xml中<url-pattern>*.do</url-pattern>配置*.do就可以找到页面,配置成/  就报
+   No mapping found for HTTP request with URI [/product/pages/back/index1.html] in DispatcherServlet with name 'dispatcherServlet'
+   
+   
+   在eclipse使用git,选择team->remote->push->复制git地址后选择master分支，add space
+但最后总是说
+Can't connect to any repository: https://github.com/zhouyix/OfferPractice.git
+ (https://github.com/zhouyix/OfferPractice.git: not authorized)
+  general------security--------secure storage------contents
+    选中你的账号密码删除就行了,这样提交后会让你提用户名和密码
+ 如果把本地的代码中的git文件夹删除后,如果需要重新生成,需要先把eclipse关闭,然后再打开刷新项目,即可按照原来的将项目提交到github步骤生成   
+   
