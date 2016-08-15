@@ -67,6 +67,19 @@
 	    <artifactId>spring-aop</artifactId>
 	    <version>4.0.0.RELEASE</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-lgpl -->
+	<dependency>
+	    <groupId>org.codehaus.jackson</groupId>
+	    <artifactId>jackson-mapper-lgpl</artifactId>
+	    <version>1.9.13</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>2.8.0</version>
+	</dependency>
+	
 	
   </dependencies>
   <!-- 配置jetty来运行项目 -->

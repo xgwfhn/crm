@@ -99,7 +99,7 @@ $(function() {
 		});
 		//产品添加表单验证	
 		$("#productAddForm").form({//内核也是调用ajax提交
-            url: 'add.do',	//此处也不需要表单序列化 后台可以获取到
+            url: 'add1.do',	//此处也不需要表单序列化 后台可以获取到
             onSubmit: function () {//提交之前触发的事件，如果返回false可以防止提交
                return $("#productAddForm").form('validate');
     

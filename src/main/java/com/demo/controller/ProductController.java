@@ -1,5 +1,8 @@
 package com.demo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -24,5 +27,14 @@ public class ProductController {
 	public String add(HttpServletRequest request, Model model) {
 		System.out.println(request.getParameter("name"));//获取表单数据
 		return "{\"success\":\"true\"}"; 
+	}
+	
+	@RequestMapping(value = "/add1", method = RequestMethod.POST)
+	@ResponseBody	//加上@ResponseBody,说明改方法不会跳转到页面,而是返回json字符串
+	public Map<String,Object> add1(HttpServletRequest request, Model model) {
+		System.out.println(request.getParameter("name"));//获取表单数据
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("success", true);
+		return map; 
 	}
 } 

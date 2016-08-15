@@ -27,11 +27,17 @@
    No mapping found for HTTP request with URI [/product/pages/back/index1.html] in DispatcherServlet with name 'dispatcherServlet'
    
    
-   在eclipse使用git,选择team->remote->push->复制git地址后选择master分支，add space
-但最后总是说
-Can't connect to any repository: https://github.com/zhouyix/OfferPractice.git
+ 在eclipse使用git,选择team->remote->push->提交项目到github时
+报 Can't connect to any repository: https://github.com/zhouyix/OfferPractice.git
  (https://github.com/zhouyix/OfferPractice.git: not authorized)
-  general------security--------secure storage------contents
-    选中你的账号密码删除就行了,这样提交后会让你提用户名和密码
- 如果把本地的代码中的git文件夹删除后,如果需要重新生成,需要先把eclipse关闭,然后再打开刷新项目,即可按照原来的将项目提交到github步骤生成   
+ 解决:general------security--------secure storage------contents
+       选中你的账号密码删除就行了,这样提交后会让你提用户名和密码
+      如果把本地的代码中的git文件夹删除后,如果需要重新生成,需要先把eclipse关闭,然后再打开刷新项目,即可按照原来的将项目提交到github步骤生成   
+提交项目到github  要不要提交classpath  project那些文件呢
+测试证明 提交项目到github时 可以不用提交classpath,.project那些文件
+
+*提交本地项目到github步骤
+   提节前要先在github中创建仓库,在本地的eclispe中生成key，把key添加到github中,这样提交项目时 github才能进行安全验证
+   参考http://www.open-open.com/lib/view/open1406105786710.html	 
+	 
    
