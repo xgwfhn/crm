@@ -28,11 +28,11 @@
    
    
  在eclipse使用git,选择team->remote->push->提交项目到github时
-报 Can't connect to any repository: https://github.com/zhouyix/OfferPractice.git
+ 报 Can't connect to any repository: https://github.com/zhouyix/OfferPractice.git
  (https://github.com/zhouyix/OfferPractice.git: not authorized)
  解决:general------security--------secure storage------contents
        选中你的账号密码删除就行了,这样提交后会让你提用户名和密码   
-      如果把本地的代码中的git文件夹删除后,如果需要重新生成,需要先把eclipse关闭,然后再打开刷新项目,即可按照原来的将项目提交到github步骤生成   
+       如果把本地的代码中的git文件夹删除后,如果需要重新生成,需要先把eclipse关闭,然后再打开刷新项目,即可按照原来的将项目提交到github步骤生成   
 提交项目到github  要不要提交classpath  project那些文件呢
 测试证明 提交项目到github时 可以不用提交classpath,.project那些文件
 
@@ -40,11 +40,24 @@
    提节前要先在github中创建仓库,在本地的eclispe中生成key，把key添加到github中,这样提交项目时 github才能进行安全验证
    参考http://www.open-open.com/lib/view/open1406105786710.html	 
 
-*librarys中jar包丢下问题	 
-
+*maven dependencieslibrarys中丢失的jar  怎么删除
+      在pom.xml中 dependencies 中删除
+ pom.xml视图介绍 
+    Overview:显示maven项目的一些基本信息. 
+	Dependencies:添加jar包的页面,很重要! 
+	Plugins:添加maven插件的页面.比如tomcat-maven-plugin等. 
+	Reporting:从没用过,无视~ 
+	Dependency Hierarchy:用于显示jar包的依赖关系.没事的时候可以看看jar包的依赖关系. 
+	Effective POM:显示maven的编译路径,plugin之类的.也可以无视. 
+	pom.xml:导入jar包的信息,可以在其中进行修改.重要    
 
 Eclipse中Maven工程缺少Maven Dependencies
-http://chenzhou123520.iteye.com/blog/1811340
+	http://chenzhou123520.iteye.com/blog/1811340
 
 * 想重新下jar包,可以重新install下
+
+* 关联源码,设置断点,debug调试的时候  要关联源码后要重启eclipse才能生效
+
+* maven工程下  修改方法里的内容  不生效 
+      必须要在Project Explorer视图中打开才能生效?
    
