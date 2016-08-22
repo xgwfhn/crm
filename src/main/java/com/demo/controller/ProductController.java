@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.demo.model.Product;
 
 @Controller
@@ -47,17 +46,6 @@ public class ProductController {
 	public String jumpFormsSubmit(HttpServletRequest request, Model model) {
 		System.out.println("formsSubmit");
 		return "formsSubmit"; 
-	}
-	
-	
-	/**跳转到文件上传页面
-	 * @param request
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
-	public String fileUpload(HttpServletRequest request, Model model) {
-		return "fileUpload";
 	}
 	
 	

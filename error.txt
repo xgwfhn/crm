@@ -53,6 +53,7 @@
 
 Eclipse中Maven工程缺少Maven Dependencies
 	http://chenzhou123520.iteye.com/blog/1811340
+	如果可以编译通过,但是还是提示有误,可以重启eclipse
 
 * 想重新下jar包,可以重新install下
 
@@ -60,4 +61,12 @@ Eclipse中Maven工程缺少Maven Dependencies
 
 * maven工程下  修改方法里的内容  不生效 
       必须要在Project Explorer视图中打开才能生效?
+      
+*文件上传错误
+java.lang.ClassCastException: org.eclipse.jetty.server.Request cannot be cast to org.springframework.web.multipart.MultipartHttpServletRequest
+解决:在springmvc.xml中配置
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8">
+        <property name="maxUploadSize" value="1024000000"></property>
+</bean>
+      
    
