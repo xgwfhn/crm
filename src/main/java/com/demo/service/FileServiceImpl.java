@@ -1,6 +1,7 @@
 package com.demo.service;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.demo.model.UploadFile;
+import com.demo.utils.DateUtil;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -32,20 +34,20 @@ public class FileServiceImpl implements FileService {
         // 获取项目的相对路径（http://localhost:8080/file）
         String requestURL = request.getRequestURL().toString();
         String prePath = requestURL.substring(0, requestURL.indexOf("/"));
-
+        String savePath=request.getSession().getServletContext().getRealPath("style/upload");//获取upload目录的绝对路径
+        System.out.println("savePath:"+savePath);
         while (fileIterator.hasNext()) {
             String fileKey = fileIterator.next();
             logger.debug("文件名为:" + fileKey);
 
             // 获取对应文件
             MultipartFile multipartFile = fileMap.get(fileKey);
-
             if (multipartFile.getSize() != 0L) {
 
                 //validateImage(multipartFile);
 
                 // 调用saveImage方法保存
-                UploadFile file = saveImage(multipartFile);
+                UploadFile file = saveImage(multipartFile,savePath);
                 file.setPrePath(prePath);//设置绝对路径
 
                 return file;
@@ -55,17 +57,20 @@ public class FileServiceImpl implements FileService {
         return null;
     }
     
-    private UploadFile saveImage(MultipartFile image) throws IOException {
+    private UploadFile saveImage(MultipartFile image,String savePath) throws IOException {
         String originalFilename = image.getOriginalFilename();
         logger.debug("文件原始名称为:" + originalFilename);
 
         String contentType = image.getContentType();
-        String type = contentType.substring(contentType.indexOf("/") + 1);//获取后缀名类型
-        String fileName = new Random().nextInt(100) + "." + type;
-  
+        //String type = contentType.substring(contentType.indexOf("/") + 1);//获取后缀名类型
+        String originalName=originalFilename.split("\\.")[0];//.分割符  需'\\'转义   原文件名称
+        String fileType=originalFilename.split("\\.")[1];//原文件格式
+        //名称格式  原名称+时间
+        String fileName = originalName+DateUtil.DateToString(new Date(),"yyyyMMddHHmmss")+ "." + fileType;
+        
         // 封装了一个简单的file对象，增加了几个属性
-        UploadFile file = new UploadFile("C:/Users/Administrator/Desktop/文件上传/", fileName);
-        file.setContentType(contentType);
+        UploadFile file = new UploadFile(savePath, fileName);
+        file.setContentType(fileType);
         logger.debug("文件保存路径:" + file.getSaveDirectory());
 
         // 通过org.apache.commons.io.FileUtils的writeByteArrayToFile对图片进行保存
@@ -73,5 +78,7 @@ public class FileServiceImpl implements FileService {
 
         return file;
     }
+    
+    
 
 }

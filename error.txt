@@ -68,5 +68,7 @@ java.lang.ClassCastException: org.eclipse.jetty.server.Request cannot be cast to
 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8">
         <property name="maxUploadSize" value="1024000000"></property>
 </bean>
+
+* 关于html中不能引用js变量  或使用el表示获取后台设置的变量  的解决      
       
    

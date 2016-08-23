@@ -10,22 +10,31 @@ http://plugins.krajee.com/file-input,这是其官方文档，里面有下载地�
 <meta charset="UTF-8">
 <title>没有显示数据库文件,直接上传</title>
 <!-- <link href="../style/bootstrap/bootstrap.css" rel="stylesheet"/> -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="../style/bootstrap/fileinput.css" />
- <script type="text/javascript" src="../script/easyui/jquery.min.js"></script>
-<script type="text/javascript" src="../script/fileupload/fileinput.js"></script>
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"> -->
+<script src="../script/common.js" type="text/javascript"></script>
+<link href="http://127.0.0.1:8080/product/style/bootstrap/bootstrap.css" rel="stylesheet">  
+<link type="text/css" rel="stylesheet" href="http://127.0.0.1:8080/product/style/bootstrap/fileinput.css" />
+ <script type="text/javascript" src="http://127.0.0.1:8080/product/script/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/product/script/fileupload/fileinput.js"></script>
 <!-- <script src="../script/fileupload/bootstrap.js" type="text/javascript"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>  -->
+<script src="http://127.0.0.1:8080/product/script/bootstrap/bootstrap.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/product/script/fileupload/zh.js"></script>
+<script type="text/javascript"> 
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="../script/fileupload/zh.js"></script>
-<script type="text/javascript">
 $(function() { 	
-    
+	var address=window.location.href;
+    var thisDLoc   =   document.location;  
+    var hostport=document.location.host;
+    //console.log("address",address);
+    //console.log("thisDLoc",thisDLoc);
+    //console.log("hostport",hostport);
+	//此种方式  是同步还是异步呢
     $("#testlogo").fileinput({
     	   uploadUrl: 'upload.do', 
     	   initialPreview: [//初始化页面加载时要显示的文件
-               'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
-               'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
+               '../style/upload/631px_FullMoon201020160823221510.jpg',
+               '../style/upload/Earth_Eastern_Hemisphere20160823221141.jpg'
            ],
            initialPreviewAsData: true,
            initialPreviewConfig: [
@@ -42,10 +51,10 @@ $(function() {
            initialCaption: "The Moon and the Earth"
        }).off('filepreupload').on('filepreupload', function() {  
 //         alert(data.url);  
-       }).on("fileuploaded", function(event, outData) {  
-              //文件上传成功后返回的数据， 此处我只保存返回文件的id  
-              //var result = outData.response.id;  
-              alert();
+       }).on("fileuploaded", function(event, outData) {  //文件上传成功后返回的数据
+    	   var response = outData.response;
+    	   response=eval("("+response+")");//转换为json对象 
+    	   alert(response.message);
        });      
     
     
@@ -59,7 +68,6 @@ $(function() {
 <!-- 
 <input id="input-id" type="file" class="file" data-preview-file-type="text">
  -->
-    
      	 <label class="control-label">Planets and Satellites</label>
          <input id="testlogo" type="file" name="icoFile"   multiple class="file-loading"/>
      
