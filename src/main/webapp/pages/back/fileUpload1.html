@@ -1,8 +1,30 @@
 <!-- 
+http://plugins.krajee.com/   krajee所有插件
 http://plugins.krajee.com/file-input,这是其官方文档，里面有下载地址。
 参考:http://www.cnblogs.com/wuhuacong/p/4774396.html
 	http://blog.csdn.net/qing_gee/article/details/51027040#t8
 	http://www.htmleaf.com/html5/html5muban/201505091801.html
+	
+	功能要点:
+		支持文件国际化   //zh.js文件必须在fileinput.js之后   并设置language: "zh" 选项
+		上传或删除文件 成功后,弹出提示框,确认后自动ajax刷新文件列表
+		上传文件超出所限制的大小时  给出提示
+		上传文件不符合格式的文件 给出提示  //参考 allowedFileExtensions选项
+		上传失败时  能给出提示
+		多文件上传时  如果某个文件的大小或格式  不符合要求   给出提示  该文件
+		多文件上传时  上传结果提示 只给出一次
+		支持多文件上传
+		支持是否同步,文件上传最大,最小个数限制
+		支持删除某个文件时  特定路径，在caption中配置
+		支持上传时 的全局参数 传递 到后台  ,在uploadExtraData选项中配置
+		支持选择文件后就自动上传  调用filebatchselected事件
+		支持删除文件时给出提示  参考demo ajax Scenario8
+		支持单个文件上传成功 已文本方式显示  而不是弹出框  参考 demo ajax Scenario10
+		支持多个文件上传成功 已文本方式显示  而不是弹出框  参考 demo ajax Scenario11
+		支持单击文件区域时 弹出选择文件对话框   而是不是文件选择按钮     参考 demo ajax Scenario12
+		
+		支持单个目录上传
+		支持多个目录上传 
  -->
 <!DOCTYPE html>
 <html>
@@ -16,10 +38,11 @@ http://plugins.krajee.com/file-input,这是其官方文档，里面有下载地�
 <link type="text/css" rel="stylesheet" href="http://127.0.0.1:8080/product/style/bootstrap/fileinput.css" />
  <script type="text/javascript" src="http://127.0.0.1:8080/product/script/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1:8080/product/script/fileupload/fileinput.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/product/script/fileupload/zh.js"></script>
 <!-- <script src="../script/fileupload/bootstrap.js" type="text/javascript"></script> -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>  -->
 <script src="http://127.0.0.1:8080/product/script/bootstrap/bootstrap.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://127.0.0.1:8080/product/script/fileupload/zh.js"></script>
+
 <script type="text/javascript"> 
 
 $(function() { 	
@@ -29,17 +52,22 @@ $(function() {
     //console.log("address",address);
     //console.log("thisDLoc",thisDLoc);
     //console.log("hostport",hostport);
-	//此种方式  是同步还是异步呢
     $("#testlogo").fileinput({
+    	   //browseLabel: 'Select Folder...',//浏览按钮字体
     	   uploadUrl: 'upload.do', 
+    	   language: "zh",//中文显示
+    	   uploadAsync: true,//设置是否同步
+    	   minFileCount: 1,//最小文件上传个数
+    	   maxFileCount: 5,//最大文件上传个数
     	   initialPreview: [//初始化页面加载时要显示的文件
                '../style/upload/631px_FullMoon201020160823221510.jpg',
                '../style/upload/Earth_Eastern_Hemisphere20160823221141.jpg'
            ],
-           initialPreviewAsData: true,
-           initialPreviewConfig: [
+           initialPreviewAsData: true,//是否初始化时就显示文件
+           initialPreviewConfig: [//初始化时  要显示的文件的属性设置
                {caption: "Moon.jpg", size: 930321, width: "250px", key: 1},//此处width是不生效的
                {caption: "Earth.jpg", size: 1218822, width: "150px", key: 2}
+               //{caption: "People-2.jpg", size: 932882, width: "120px", url: "/site/file-delete", key: 2},
            ],
            previewSettings:{//设置图片的大小,width一般设置为auto,才能对齐,只能在这种写法中生效
                 image: {width: "auto", height: "160px"}            
@@ -48,10 +76,19 @@ $(function() {
            deleteUrl: "/site/file-delete",
            overwriteInitial: false,
            maxFileSize: 100,
+           uploadExtraData: {//参数设置
+               img_key: "1000",
+               img_keywords: "happy, places",
+           },
+           //allowedFileExtensions: ["jpg", "png", "gif"],//设置允许上传文件的格式
            initialCaption: "The Moon and the Earth"
        }).off('filepreupload').on('filepreupload', function() {  
 //         alert(data.url);  
-       }).on("fileuploaded", function(event, outData) {  //文件上传成功后返回的数据
+       })
+       /* .on("filebatchselected", function(event, files) {//文件选择后 自动上传
+   			 $("#testlogo").fileinput("upload");
+		}) */
+       .on("fileuploaded", function(event, outData) {  //文件上传成功后返回的数据
     	   var response = outData.response;
     	   response=eval("("+response+")");//转换为json对象 
     	   alert(response.message);

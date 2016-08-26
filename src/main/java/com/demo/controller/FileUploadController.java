@@ -23,6 +23,16 @@ public class FileUploadController {
 	 @Autowired
 	 private FileService fileService;
 	 
+	/**功能列表
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+		public String list(HttpServletRequest request, Model model) {
+			return "list";
+	}
+	 
 	 /**跳转到文件上传页面_1
 		 * @param request
 		 * @param model
@@ -44,11 +54,26 @@ public class FileUploadController {
 		String path="http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath();//
 		return "fileUpload1";
 	}
+	
+	
+	/**目录上传  多文件
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/folderMultiUpload", method = RequestMethod.GET)
+	public String folderMultiUpload(HttpServletRequest request, Model model) {
+		//获取项目的根目录 如   http://127.0.0.1:8080/product
+		String path="http://"+request.getLocalAddr()+":"+request.getLocalPort()+request.getContextPath();//
+		return "folderMultiUpload";
+	}
+	
 		
 	@RequestMapping("/upload")
 	@ResponseBody
     public String index(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("获取上传文件...");
+        logger.info("获取上传文件...");
+        System.out.println("开始上传");
         try {
             UploadFile uploadFile = fileService.saveFile(request);
             if(uploadFile!=null){
