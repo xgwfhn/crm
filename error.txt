@@ -1,4 +1,5 @@
-
+* java文件没有自动校验
+* 修改包名后   有时并不能在target重新生成   需要手工删掉和刷新
 * [ERROR] \test\code\springMvc\crm\src\main\java\com\demo\utils\SimpleLunarCalendar.java:[255,2] 需要为 class、interface 或 enum
   解决  complier插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置  在pom.xml中配置
 * springMVC No mapping found for HTTP request with URI (2012-02-03 09:21:13)转载▼
